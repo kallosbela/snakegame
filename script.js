@@ -14,7 +14,7 @@ const FOOD_SPAWN_INTERVAL = 2000;
 
 let input;
 let snake;
-let foods;
+let foods; 
 let foodSpawnElapsed;
 let gameover;
 let score;
@@ -104,7 +104,12 @@ function update(delta) {
   foodSpawnElapsed += delta;
   if (foodSpawnElapsed > FOOD_SPAWN_INTERVAL) {
     foodSpawnElapsed -= FOOD_SPAWN_INTERVAL;
+    const pizza = document.createElement("img");
+    pizza.src = "pizza.jpg";
+    pizza.style.width = CELL_SIZE;
+    pizza.style.height = CELL_SIZE;
     foods.push({
+      pizza: pizza,
       x: Math.floor(Math.random() * WORLD_WIDTH),
       y: Math.floor(Math.random() * WORLD_HEIGHT),
     });
@@ -115,12 +120,13 @@ function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  
+
   ctx.fillStyle = "orange";
-  foods.forEach(({ x, y }) => {
-    ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+  foods.forEach(({ pizza, x, y }) => {
+    ctx.drawImage(pizza, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE );
+    //ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
   });
-  
+
   snake.parts.forEach(({ x, y }, index) => {
     if (index === 0) {
       ctx.fillStyle = "black";
@@ -129,7 +135,6 @@ function render() {
     }
     ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
   });
-
 
   ctx.fillStyle = "green";
   ctx.font = "20px Arial";

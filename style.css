@@ -1,0 +1,9 @@
+img {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+}
+
+canvas {
+  position: fixed;
+}
